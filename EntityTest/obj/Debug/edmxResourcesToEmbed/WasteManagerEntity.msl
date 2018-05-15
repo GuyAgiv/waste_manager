@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WasteManagerModelStoreContainer" CdmEntityContainer="WasteManagerEntities">
+    <EntitySetMapping Name="Bins">
+      <EntityTypeMapping TypeName="WasteManagerModel.Bin">
+        <MappingFragment StoreEntitySet="Bin">
+          <ScalarProperty Name="BinId" ColumnName="BinId" />
+          <ScalarProperty Name="BinTypeId" ColumnName="BinTypeId" />
+          <ScalarProperty Name="CityAddress" ColumnName="CityAddress" />
+          <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+          <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+          <ScalarProperty Name="CurrentCapacity" ColumnName="CurrentCapacity" />
+          <ScalarProperty Name="IsInUse" ColumnName="IsInUse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BinLogs">
+      <EntityTypeMapping TypeName="WasteManagerModel.BinLog">
+        <MappingFragment StoreEntitySet="BinLog">
+          <ScalarProperty Name="BinLogId" ColumnName="BinLogId" />
+          <ScalarProperty Name="BinId" ColumnName="BinId" />
+          <ScalarProperty Name="CurrentCapacity" ColumnName="CurrentCapacity" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LUT_BinType">
+      <EntityTypeMapping TypeName="WasteManagerModel.LUT_BinType">
+        <MappingFragment StoreEntitySet="LUT_BinType">
+          <ScalarProperty Name="BinTypeId" ColumnName="BinTypeId" />
+          <ScalarProperty Name="BinTypeDesc" ColumnName="BinTypeDesc" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LUT_TruckType">
+      <EntityTypeMapping TypeName="WasteManagerModel.LUT_TruckType">
+        <MappingFragment StoreEntitySet="LUT_TruckType">
+          <ScalarProperty Name="TruckTypeId" ColumnName="TruckTypeId" />
+          <ScalarProperty Name="TruckTypeDesc" ColumnName="TruckTypeDesc" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trucks">
+      <EntityTypeMapping TypeName="WasteManagerModel.Truck">
+        <MappingFragment StoreEntitySet="Truck">
+          <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+          <ScalarProperty Name="TruckTypeId" ColumnName="TruckTypeId" />
+          <ScalarProperty Name="CurrentCapacity" ColumnName="CurrentCapacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WasteTransferLogs">
+      <EntityTypeMapping TypeName="WasteManagerModel.WasteTransferLog">
+        <MappingFragment StoreEntitySet="WasteTransferLog">
+          <ScalarProperty Name="WasteCollectionId" ColumnName="WasteCollectionId" />
+          <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+          <ScalarProperty Name="BinId" ColumnName="BinId" />
+          <ScalarProperty Name="TransferedCapacity" ColumnName="TransferedCapacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

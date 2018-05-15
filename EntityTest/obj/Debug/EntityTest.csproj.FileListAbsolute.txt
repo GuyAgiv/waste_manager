@@ -1,0 +1,10 @@
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\bin\Debug\EntityTest.exe.config
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\bin\Debug\EntityTest.exe
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\bin\Debug\EntityTest.pdb
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\bin\Debug\EntityFramework.dll
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\bin\Debug\EntityFramework.SqlServer.dll
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\bin\Debug\EntityFramework.xml
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\bin\Debug\EntityFramework.SqlServer.xml
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\obj\Debug\EntityTest.csprojResolveAssemblyReference.cache
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\obj\Debug\EntityTest.exe
+d:\users\guy\documents\visual studio 2015\Projects\EntityTest\EntityTest\obj\Debug\EntityTest.pdb

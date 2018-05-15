@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WasteManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bin">
+    <Key>
+      <PropertyRef Name="BinId" />
+    </Key>
+    <Property Name="BinId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BinTypeId" Type="Int32" Nullable="false" />
+    <Property Name="CityAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="StreetAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="StreetNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CurrentCapacity" Type="Double" Nullable="false" />
+    <Property Name="IsInUse" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BinLogs" Relationship="Self.FK_Bin_BinLog_BinId" FromRole="Bin" ToRole="BinLog" />
+    <NavigationProperty Name="LUT_BinType" Relationship="Self.FK_Bin_LUT_BinType_BinTypeId" FromRole="Bin" ToRole="LUT_BinType" />
+    <NavigationProperty Name="WasteTransferLogs" Relationship="Self.FK_Bin_WasteTransferLog_BinId" FromRole="Bin" ToRole="WasteTransferLog" />
+  </EntityType>
+  <EntityType Name="BinLog">
+    <Key>
+      <PropertyRef Name="BinLogId" />
+    </Key>
+    <Property Name="BinLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BinId" Type="Int32" Nullable="false" />
+    <Property Name="CurrentCapacity" Type="Double" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Bin" Relationship="Self.FK_Bin_BinLog_BinId" FromRole="BinLog" ToRole="Bin" />
+  </EntityType>
+  <EntityType Name="LUT_BinType">
+    <Key>
+      <PropertyRef Name="BinTypeId" />
+    </Key>
+    <Property Name="BinTypeId" Type="Int32" Nullable="false" />
+    <Property Name="BinTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Capacity" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Bins" Relationship="Self.FK_Bin_LUT_BinType_BinTypeId" FromRole="LUT_BinType" ToRole="Bin" />
+  </EntityType>
+  <EntityType Name="LUT_TruckType">
+    <Key>
+      <PropertyRef Name="TruckTypeId" />
+    </Key>
+    <Property Name="TruckTypeId" Type="Int32" Nullable="false" />
+    <Property Name="TruckTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Capacity" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Trucks" Relationship="Self.FK_LUT_TruckType_Truck_TruckTypeId" FromRole="LUT_TruckType" ToRole="Truck" />
+  </EntityType>
+  <EntityType Name="Truck">
+    <Key>
+      <PropertyRef Name="TruckId" />
+    </Key>
+    <Property Name="TruckId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TruckTypeId" Type="Int32" Nullable="false" />
+    <Property Name="CurrentCapacity" Type="Double" Nullable="false" />
+    <NavigationProperty Name="LUT_TruckType" Relationship="Self.FK_LUT_TruckType_Truck_TruckTypeId" FromRole="Truck" ToRole="LUT_TruckType" />
+    <NavigationProperty Name="WasteTransferLogs" Relationship="Self.FK_Truck_WasteTransferLog_TruckId" FromRole="Truck" ToRole="WasteTransferLog" />
+  </EntityType>
+  <EntityType Name="WasteTransferLog">
+    <Key>
+      <PropertyRef Name="WasteCollectionId" />
+    </Key>
+    <Property Name="WasteCollectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TruckId" Type="Int32" Nullable="false" />
+    <Property Name="BinId" Type="Int32" Nullable="false" />
+    <Property Name="TransferedCapacity" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Bin" Relationship="Self.FK_Bin_WasteTransferLog_BinId" FromRole="WasteTransferLog" ToRole="Bin" />
+    <NavigationProperty Name="Truck" Relationship="Self.FK_Truck_WasteTransferLog_TruckId" FromRole="WasteTransferLog" ToRole="Truck" />
+  </EntityType>
+  <Association Name="FK_Bin_BinLog_BinId">
+    <End Role="Bin" Type="Self.Bin" Multiplicity="1" />
+    <End Role="BinLog" Type="Self.BinLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bin">
+        <PropertyRef Name="BinId" />
+      </Principal>
+      <Dependent Role="BinLog">
+        <PropertyRef Name="BinId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bin_LUT_BinType_BinTypeId">
+    <End Role="LUT_BinType" Type="Self.LUT_BinType" Multiplicity="1" />
+    <End Role="Bin" Type="Self.Bin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LUT_BinType">
+        <PropertyRef Name="BinTypeId" />
+      </Principal>
+      <Dependent Role="Bin">
+        <PropertyRef Name="BinTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bin_WasteTransferLog_BinId">
+    <End Role="Bin" Type="Self.Bin" Multiplicity="1" />
+    <End Role="WasteTransferLog" Type="Self.WasteTransferLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bin">
+        <PropertyRef Name="BinId" />
+      </Principal>
+      <Dependent Role="WasteTransferLog">
+        <PropertyRef Name="BinId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LUT_TruckType_Truck_TruckTypeId">
+    <End Role="LUT_TruckType" Type="Self.LUT_TruckType" Multiplicity="1" />
+    <End Role="Truck" Type="Self.Truck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LUT_TruckType">
+        <PropertyRef Name="TruckTypeId" />
+      </Principal>
+      <Dependent Role="Truck">
+        <PropertyRef Name="TruckTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Truck_WasteTransferLog_TruckId">
+    <End Role="Truck" Type="Self.Truck" Multiplicity="1" />
+    <End Role="WasteTransferLog" Type="Self.WasteTransferLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Truck">
+        <PropertyRef Name="TruckId" />
+      </Principal>
+      <Dependent Role="WasteTransferLog">
+        <PropertyRef Name="TruckId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WasteManagerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bins" EntityType="Self.Bin" />
+    <EntitySet Name="BinLogs" EntityType="Self.BinLog" />
+    <EntitySet Name="LUT_BinType" EntityType="Self.LUT_BinType" />
+    <EntitySet Name="LUT_TruckType" EntityType="Self.LUT_TruckType" />
+    <EntitySet Name="Trucks" EntityType="Self.Truck" />
+    <EntitySet Name="WasteTransferLogs" EntityType="Self.WasteTransferLog" />
+    <AssociationSet Name="FK_Bin_BinLog_BinId" Association="Self.FK_Bin_BinLog_BinId">
+      <End Role="Bin" EntitySet="Bins" />
+      <End Role="BinLog" EntitySet="BinLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bin_LUT_BinType_BinTypeId" Association="Self.FK_Bin_LUT_BinType_BinTypeId">
+      <End Role="LUT_BinType" EntitySet="LUT_BinType" />
+      <End Role="Bin" EntitySet="Bins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bin_WasteTransferLog_BinId" Association="Self.FK_Bin_WasteTransferLog_BinId">
+      <End Role="Bin" EntitySet="Bins" />
+      <End Role="WasteTransferLog" EntitySet="WasteTransferLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LUT_TruckType_Truck_TruckTypeId" Association="Self.FK_LUT_TruckType_Truck_TruckTypeId">
+      <End Role="LUT_TruckType" EntitySet="LUT_TruckType" />
+      <End Role="Truck" EntitySet="Trucks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Truck_WasteTransferLog_TruckId" Association="Self.FK_Truck_WasteTransferLog_TruckId">
+      <End Role="Truck" EntitySet="Trucks" />
+      <End Role="WasteTransferLog" EntitySet="WasteTransferLogs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
